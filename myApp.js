@@ -11,10 +11,11 @@ const INDEX_PATH = __dirname + '/views/index.html';
 app.use("/public", express.static(PUBLIC_PATH));
 
 app.get("/json", (req, res) => {
-    const message = process.env.MESSAGE_STYLE === "uppercase"
-        ? "HELLO JSON"
-        : "Hello json";
-    res.json({ "message": message });
+    console.log(process.env.MESSAGE_STYLE)
+    if (process.env.MESSAGE_STYLE === "uppercase") {
+        res.json({ "message": "HELLO JSON" });
+    }
+    else res.json({ "message": "Hello json" });
 })
 
 app.get("/", (req, res) => {
