@@ -16,11 +16,11 @@ app.get("/json", (req, res) => {
         res.json({ "message": "HELLO JSON" });
     }
     else res.json({ "message": "Hello json" });
-})
+});
 
 app.get("/", (req, res) => {
     res.sendFile(INDEX_PATH);
-})
+});
 
 
 
