@@ -8,6 +8,15 @@ console.log("Hello World");
 const PUBLIC_PATH = __dirname + '/public';
 const INDEX_PATH = __dirname + '/views/index.html';
 
+const logger = (req, res, next) => {
+    const log = `${req.method} ${req.path} - ${req.ip}`
+    console.log(log)
+
+    next()
+}
+
+app.use(logger)
+
 app.use("/public", express.static(PUBLIC_PATH));
 
 app.get("/json", (req, res) => {
