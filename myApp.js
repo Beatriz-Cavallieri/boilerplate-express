@@ -15,6 +15,13 @@ const logger = (req, res, next) => {
     next()
 }
 
+const addsTime = (req, res, next) => {
+    const time = new Date().toString()
+    req.time = time
+
+    next()
+}
+
 app.use(logger)
 
 app.use("/public", express.static(PUBLIC_PATH));
@@ -32,9 +39,16 @@ app.get("/json", (req, res) => {
 
 });
 
+
+
+app.get("/now", addsTime, (req, res) => {
+    res.json({ time: req.time })
+})
+
 app.get("/", (req, res) => {
     res.sendFile(INDEX_PATH);
 });
+
 
 
 
