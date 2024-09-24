@@ -1,12 +1,16 @@
 let express = require('express');
 let app = express();
+let bodyParser = require('body-parser');
 
 require('dotenv').config();
+
 
 console.log("Hello World");
 
 const PUBLIC_PATH = __dirname + '/public';
 const INDEX_PATH = __dirname + '/views/index.html';
+
+const parserMiddleware = bodyParser.urlencoded({extended: false});
 
 const logger = (req, res, next) => {
     const log = `${req.method} ${req.path} - ${req.ip}`;
@@ -21,6 +25,8 @@ const addsTime = (req, res, next) => {
 
     next();
 }
+
+app.use(parserMiddleware);
 
 app.use(logger);
 
