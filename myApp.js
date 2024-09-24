@@ -9,20 +9,20 @@ const PUBLIC_PATH = __dirname + '/public';
 const INDEX_PATH = __dirname + '/views/index.html';
 
 const logger = (req, res, next) => {
-    const log = `${req.method} ${req.path} - ${req.ip}`
-    console.log(log)
+    const log = `${req.method} ${req.path} - ${req.ip}`;
+    console.log(log);
 
-    next()
+    next();
 }
 
 const addsTime = (req, res, next) => {
-    const time = new Date().toString()
-    req.time = time
+    const time = new Date().toString();
+    req.time = time;
 
-    next()
+    next();
 }
 
-app.use(logger)
+app.use(logger);
 
 app.use("/public", express.static(PUBLIC_PATH));
 
@@ -30,11 +30,11 @@ app.get("/json", (req, res) => {
     if (process.env.MESSAGE_STYLE == "uppercase") {
         res.json({
             message: "Hello json".toUpperCase()
-        })
+        });
     } else {
         res.json({
             message: "Hello json"
-        })
+        });
     }
 
 });
@@ -42,12 +42,16 @@ app.get("/json", (req, res) => {
 
 
 app.get("/now", addsTime, (req, res) => {
-    res.json({ time: req.time })
-})
+    res.json({ time: req.time });
+});
 
 app.get("/:word/echo", (req, res) => {
-    res.json({ echo: req.params.word })
-})
+    res.json({ echo: req.params.word });
+});
+
+app.get("/name", (req, res) => {
+    res.json({ name: `${req.query.first} ${req.query.last}` });
+});
 
 app.get("/", (req, res) => {
     res.sendFile(INDEX_PATH);
